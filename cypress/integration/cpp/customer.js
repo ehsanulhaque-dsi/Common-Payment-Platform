@@ -1,30 +1,32 @@
 import 'cypress-iframe'
+// https://customer-cpp.labs.bka.sh/ehsan/cokeshop/
 
 describe('The Home Page', () => {
 
-  it('successfully loads', () => {
-    cy.visit('https://customer-cpp.labs.bka.sh/ehsan/cokeshop/', {
-      failOnStatusCode: false
-    })
-  })
+  for (var i = 0; i < 2 ; i++) {
 
-  for (var i = 0; i < 5; i++) {
+    it('successfully loads', () => {
+      cy.visit('https://customer-cpp.labs.bka.sh/ehsan/ca-cricket/', { 
+        failOnStatusCode: false
+      })
+    })
+
     it('Click the pay now button', () => {
       cy.get('.v-btn').click()
     })
 
     it('Fill valid payment information ', () => {
-      var amount = Math.floor((Math.random() * 500) + 1);
+      var amount = Math.floor((Math.random() * 2000) + 1);
 
       cy.get('[name=amount]').type(amount)
       cy.get('[name=customerPhoneNumber]').type("01987603822")
-
       cy.get('.v-btn').click()
+
     })
 
     it('Process payment using bkash', () => {
 
-      cy.wait(7000)
+      cy.wait(5000)
       cy.frameLoaded()
 
       cy.get('iframe')
@@ -60,8 +62,6 @@ describe('The Home Page', () => {
       cy.get('.v-btn--contained', {
         timeout: 15000
       }).should('be.visible').click()
-
-
 
     })
   }
